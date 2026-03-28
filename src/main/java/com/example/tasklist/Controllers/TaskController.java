@@ -77,7 +77,6 @@ public class TaskController {
         return ResponseEntity.ok(taskService.save_task(updatedTask));
     }
 
-    // DELETE task
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable String id) {
         Optional<Tasks> temp = taskService.get_task_by_id(id);
