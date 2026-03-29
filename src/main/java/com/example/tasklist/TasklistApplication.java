@@ -10,5 +10,4 @@ public class TasklistApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TasklistApplication.class, args);
 	}
-
 }

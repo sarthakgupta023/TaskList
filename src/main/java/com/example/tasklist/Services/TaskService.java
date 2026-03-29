@@ -15,10 +15,6 @@ public class TaskService {
     @Autowired
     private TaskRepo taskRepo;
 
-    public List<Tasks> get_all_tasks() {
-        return taskRepo.findAll();
-    }
-
     public List<Tasks> get_tasks_by_user(String userId) {
         return taskRepo.findByUserId(userId);
     }
@@ -33,5 +29,9 @@ public class TaskService {
 
     public void delete_task(String id) {
         taskRepo.deleteById(id);
+    }
+
+    public List<Tasks> getall() {
+        return taskRepo.findAll();
     }
 }

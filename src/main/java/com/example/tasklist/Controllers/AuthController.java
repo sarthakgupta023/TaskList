@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.tasklist.Services.AuthService;
 import com.example.tasklist.entities.Users;
 
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:5173")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

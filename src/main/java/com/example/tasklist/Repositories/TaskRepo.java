@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.example.tasklist.entities.Tasks;
 
 public interface TaskRepo extends MongoRepository<Tasks, String> {
-    List<Tasks> findByUserId(String userId); // get all tasks of a user
+    List<Tasks> findByUserId(String userId); 
 }

@@ -21,46 +21,34 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    // Converts secret string → a secure signing key
-    private SecretKey getSigningKey() {
+    private SecretKey getKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    // Generate token from email + role
-    public String generateToken(String email, String role) {
+    public String generateToken(String email) {
         return Jwts.builder()
-                .setSubject(email) // who this token belongs to
-                .claim("role", role) // extra data inside token
-                .setIssuedAt(new Date()) // when created
-                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // when expires
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256) // sign it
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // Read email from token
     public String extractEmail(String token) {
         return getClaims(token).getSubject();
     }
 
-    // Read role from token
-    public String extractRole(String token) {
-        return getClaims(token).get("role", String.class);
-    }
-
-    // Check if token is expired
     public boolean isTokenValid(String token) {
         try {
-            Date expiry = getClaims(token).getExpiration();
-            return expiry.after(new Date()); // true if not expired
+            return getClaims(token).getExpiration().after(new Date());
         } catch (Exception e) {
-            return false; // tampered or malformed token
+            return false;
         }
     }
 
-    // Internal: extract all claims from token
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
+                .setSigningKey(getKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

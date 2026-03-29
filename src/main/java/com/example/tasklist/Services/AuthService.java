@@ -23,8 +23,6 @@ public class AuthService {
 
     public Users register(Users user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (user.getRole() == null)
-            user.setRole("USER");
         return userService.save_user(user);
     }
 
@@ -38,6 +36,6 @@ public class AuthService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
-        return jwtUtil.generateToken(user.getEmail(), user.getRole());
+        return jwtUtil.generateToken(user.getEmail());
     }
 }

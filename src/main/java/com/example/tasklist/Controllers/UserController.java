@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.tasklist.Services.UserService;
 import com.example.tasklist.entities.Users;
 
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:5173")
 @RequestMapping("users")
 @RestController
 public class UserController {
